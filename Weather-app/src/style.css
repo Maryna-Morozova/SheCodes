@@ -1,0 +1,105 @@
+h1 {
+    color: rgb(87, 154, 221);
+    text-align: center;
+    letter-spacing: 3px;
+    margin: 25px 0;
+    font-family: 'Miltonian', cursive;
+    font-size: 50px;
+    font-weight: 600;
+}
+
+.container {
+    font-family: 'Comfortaa', cursive;
+}
+
+.col-6 {
+    border: 3px solid black;
+    opacity: 0.85;
+    border-radius: 15px;
+}
+
+.first {
+    background-color: rgb(87, 154, 221);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.search {
+    background-color: rgb(87, 154, 221);
+    color: #ffff;
+    border: #ffff;
+    border-radius: 5px;
+    padding: 1px 16px;
+}
+
+.date {
+    text-align: center;
+    color: #ffff;
+}
+
+.celsius, .fahrenheit {
+    text-decoration: none;
+    color: #ffff;
+}
+
+.form {
+    margin: auto;
+    width: 100%;
+}
+
+.input {
+    padding: 16px 8px;
+    margin: auto;
+    display: flex;
+    
+}
+
+.currently {
+    font-size: 32px;
+    color: #ffff;
+    text-align: right;
+    margin: auto;
+    padding: 0;
+}
+
+.convert {
+    font-size: 20px;
+    color: #ffff;
+    text-align: left;
+    margin: auto;
+    padding: 0 0 0 10px;
+
+}
+.form-control {
+    font-size: 20px;
+    max-width: auto;
+}
+
+.symbols {
+    margin: 0;
+    margin: auto;
+    color:#ffff;
+    text-transform: capitalize;
+}
+
+.current {
+    font-size: 35px;
+    color: #ffff;    
+}
+
+.week {
+    padding-top: 16px;
+    margin: 0 auto;
+}
+
+.icon {
+    text-align: center;
+}
+
+.humidity {
+    text-align: right;
+}
+
+.hr {
+    color: #ffff;
+}
