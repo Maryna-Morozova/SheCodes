@@ -31,14 +31,15 @@
     <title>Weather</title>
   </head>
   <body>
-    <h1>Weather</h1>
     <div class="container">
+      <h1>Weather</h1>
       <div class="row">
         <div class="col-3"></div>
-        <div class="col-6">
+        <div class="col-6 qw">
+            <div class="col date" id="date"></div>
           <div class="row first">
             <form class="row g-3 form" id="search-form">
-              <div class="col-5 input">
+              <div class="col-6 input">
                 <input
                   type="text"
                   class="form-control"
@@ -48,8 +49,8 @@
                 />
                 <button class="material-symbols-outlined search">search</button>
               </div>
-              <div class="col-2 date" id="date"></div>
-              <div class="col-1 currently"></div>
+              
+              <div class="col-2 currently"></div>
               <div class="col-2 convert">
                 <a href="" class="celsius"
                   ><sup><sup>o</sup> C</sup></a
@@ -60,7 +61,7 @@
                 >
               </div>
               <div class="col-2 symbols">
-                <span class="material-symbols-outlined current">cloudy</span>
+                <img src="images/weather-icons-png/Sunny.png" alt="" class="icon" id="icon">
               </div>
             </form>
           </div>
@@ -125,9 +126,11 @@
       </div>
     </div>
     <footer class="contact">
-      <a href="https://github.com/Maryna-Morozova/SheCodes">Open-source code</a>
+      <a href="https://github.com/Maryna-Morozova/SheCodes" target="_blank"
+        >Open-source code</a
+      >
       by Maryna Morozova
     </footer>
-    <script src="src\index.js"></script>
+    <script src="src/index.js"></script>
   </body>
 </html>

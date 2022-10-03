@@ -8,11 +8,15 @@ h1 {
     font-weight: 600;
 }
 
+/* body {
+        background-color: rgb(185, 185, 185);
+} */
+
 .container {
     font-family: 'Comfortaa', cursive;
 }
 
-.col-6 {
+.col-6.qw {
     border: 3px solid black;
     opacity: 0.85;
     border-radius: 15px;
@@ -34,7 +38,9 @@ h1 {
 
 .date {
     text-align: center;
-    color: #ffff;
+    color: rgb(66, 137, 209);
+    font-size: larger;
+    font-weight: bold;
 }
 
 .celsius, .fahrenheit {
@@ -76,10 +82,12 @@ h1 {
 }
 
 .symbols {
-    margin: 0;
     margin: auto;
-    color:#ffff;
-    text-transform: capitalize;
+    text-align: center;
+}
+
+.icon{
+    width: 55px;
 }
 
 .current {
@@ -90,10 +98,6 @@ h1 {
 .week {
     padding-top: 16px;
     margin: 0 auto;
-}
-
-.icon {
-    text-align: center;
 }
 
 .humidity {

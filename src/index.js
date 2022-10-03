@@ -25,7 +25,7 @@ currentDate.innerHTML = `${week[day]} ${hours}:${minutes}`;
 
 
 
-// Current geolocation
+// Current geolocation in h1
 
 navigator.geolocation.getCurrentPosition(showPosition);
 
@@ -55,20 +55,42 @@ submitTheForm.addEventListener("submit", search)
 let searchInput = document.querySelector("#search-text-input");
 searchInput.addEventListener("click", function () { searchInput.value = `` })
 
-
+var apiKey = "d9fd12d82698dc44978f38d20ae7d12d"
 
 function search(event) {
     event.preventDefault();
     if (searchInput.value !== "") {
-        let apiKey = "d9fd12d82698dc44978f38d20ae7d12d"
-        let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&appid=${apiKey}&units=metric`
-        axios.get(apiUrl).then(display) 
+        var apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&appid=${apiKey}&units=metric`
+        axios.get(apiUrl).then(display)
     }
 }
 
+
+let weatherIcons = {
+        Thunderstorm: "images/weather-icons-png/CloudRainThunder.png",
+        Drizzle: "images/weather-icons-png/IsoRainSwrsDay.png",
+        Rain: "images/weather-icons-png/FreezingRain.png",
+        Snow: "images/weather-icons-png/OccLightSnow.png",
+        Clear: "images/weather-icons-png/Sunny.png",
+        Clouds: "images/weather-icons-png/PartlyCloudyDay.png",  
+        
+        Mist: "images/weather-icons-png/Mist.png",
+        Smoke: "images/weather-icons-png/Mist.png",
+        Haze: "images/weather-icons-png/Mist.png",
+        Dust: "images/weather-icons-png/Mist.png",
+        Fog: "images/weather-icons-png/Mist.png",
+        Sand: "images/weather-icons-png/Mist.png",
+        Dust: "images/weather-icons-png/Mist.png",
+        Ash: "images/weather-icons-png/Mist.png",
+        Squall: "images/weather-icons-png/Mist.png",
+        
+        Tornado: "images/weather-icons-png/wind.png",
+};
+
+
 function display(response) {
     console.log(response.data);
-    
+
     let currentlyForecast = document.querySelector(".currently")
     currentlyForecast.innerHTML = `${Math.round(response.data.main.temp)}`
 
@@ -76,7 +98,7 @@ function display(response) {
     fahrenheit.addEventListener("click", convertFahrenheit);
     function convertFahrenheit(event) {
         event.preventDefault();
-        currentlyForecast.innerHTML = `${(Math.round(response.data.main.temp) * 9) / 5 + 32}`
+        currentlyForecast.innerHTML = `${Math.round((response.data.main.temp) * 9 / 5 + 32)}`
     }
 
     let celsius = document.querySelector(".celsius");
@@ -86,7 +108,32 @@ function display(response) {
         currentlyForecast.innerHTML = `${Math.round(response.data.main.temp)}`
     }
 
-    let currentDesc = document.querySelector(".symbols")
-    currentDesc.innerHTML = `${response.data.weather[0].description}`
- 
+    let icon = document.querySelector("#icon");
+    icon.setAttribute("src", `${iconChange(response.data.weather[0].main)}`);
+    console.log(response.data.weather[0].main);// clouds
+
+    function iconChange(main) {
+        if (weatherIcons[main] !== undefined) {
+            return `${weatherIcons[main]}`
+        }
+    }
 }
+
+
+
+
+
+// weather icons:
+// https://openweathermap.org/weather-conditions
+
+// 01d sunny (clear sky)
+// 02d partly_cloudy_day
+// 03d cloudy (scattered clouds)
+// 04d filter_drama (broken clouds)
+// 09d rainy (shower rain)
+// 10d umbrella (rain)
+// 11d thunderstorm
+// 13d weather_snowy
+// 50d foggy
+
+
