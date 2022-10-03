@@ -86,6 +86,16 @@ h1 {
     
 }
 
+.description {
+    font-size: 18px;
+    text-transform: capitalize;
+    color: #ffff;
+    text-align: center;
+    margin: auto;
+    padding: 0;
+    letter-spacing: 0.8;
+}
+
 .symbols {
     margin: auto;
     text-align: center;

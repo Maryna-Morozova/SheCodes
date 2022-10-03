@@ -41,9 +41,12 @@ function showPosition(position) {
     axios.get(apiUrl2).then(displayGeo);
 }
 
-function displayTemp(response) {    
+function displayTemp(response) {
     let currentlyTemp = document.querySelector(".currently");
     currentlyTemp.innerHTML = `${Math.round(response.data.main.temp)}`;
+    
+    let currentDesc = document.querySelector("#description");
+    currentDesc.innerHTML = `${response.data.weather[0].description}`;
 
     let currentIcon = document.querySelector("#icons");
     currentIcon.setAttribute("src", `${iconChange(response.data.weather[0].main)}`);
@@ -80,7 +83,11 @@ let submitTheForm = document.querySelector("#search-form")
 submitTheForm.addEventListener("submit", search)
 
 let searchInput = document.querySelector("#search-text-input");
-searchInput.addEventListener("click", function () { searchInput.value = `` })
+searchInput.addEventListener("click", function () {
+    searchInput.value = ``;
+    let geo = document.querySelector("#search-text-input");
+    geo.setAttribute("placeholder", `City`);
+})
 
 function search(event) {
     event.preventDefault();
@@ -118,6 +125,9 @@ function display(response) {
 
     let currentlyForecast = document.querySelector(".currently")
     currentlyForecast.innerHTML = `${Math.round(response.data.main.temp)}`
+
+    let currentDesc = document.querySelector("#description");
+    currentDesc.innerHTML = `${response.data.weather[0].description}`;
 
     let fahrenheit = document.querySelector(".fahrenheit");
     fahrenheit.addEventListener("click", convertFahrenheit);
