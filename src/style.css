@@ -1,22 +1,26 @@
-h1 {
-    color: rgb(87, 154, 221);
-    text-align: center;
-    letter-spacing: 3px;
-    margin: 25px 0;
-    font-family: 'Miltonian', cursive;
-    font-size: 50px;
-    font-weight: 600;
-}
-
-/* body {
-        background-color: rgb(185, 185, 185);
-} */
-
 .container {
     font-family: 'Comfortaa', cursive;
 }
 
-.col-6.qw {
+.title, .main{
+justify-content: center;
+}
+h1 {
+    color: rgb(87, 154, 221);
+    letter-spacing: 3px;
+    margin: 10px 0 10px 0;
+    font-family: 'Miltonian', cursive;
+    font-size: 50px;
+    font-weight: 600;
+}
+.weather {
+    text-align: right;
+}
+.forecast {
+    text-align: left;
+}
+
+.col-6.main {
     border: 3px solid black;
     opacity: 0.85;
     border-radius: 15px;
@@ -33,7 +37,7 @@ h1 {
     color: #ffff;
     border: #ffff;
     border-radius: 5px;
-    padding: 1px 16px;
+    padding: 1px 14px;
 }
 
 .date {
@@ -79,6 +83,7 @@ h1 {
 .form-control {
     font-size: 20px;
     max-width: auto;
+    
 }
 
 .symbols {
@@ -86,7 +91,7 @@ h1 {
     text-align: center;
 }
 
-.icon{
+.icons{
     width: 55px;
 }
 
