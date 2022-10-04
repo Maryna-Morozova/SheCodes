@@ -36,12 +36,13 @@ function showPosition(position) {
     lat = position.coords.latitude;
     lon = position.coords.longitude;
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
-    let apiUrl2 = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${apiKey}`;
     axios.get(apiUrl).then(displayTemp);
-    axios.get(apiUrl2).then(displayGeo);
 }
 
 function displayTemp(response) {
+    let currentGeo = document.querySelector("#search-text-input");
+    currentGeo.setAttribute("placeholder", `${response.data.name}`);
+
     let currentlyTemp = document.querySelector(".currently");
     currentlyTemp.innerHTML = `${Math.round(response.data.main.temp)}`;
     
@@ -70,12 +71,6 @@ function displayTemp(response) {
         currentlyTemp.innerHTML = `${Math.round(response.data.main.temp)}`
     }
 }
-
-function displayGeo(response) {
-    let currentGeo = document.querySelector("#search-text-input");
-    currentGeo.setAttribute("placeholder", `${response.data[0].name}`);
-}
-
 
 // Input //
 
@@ -108,7 +103,8 @@ function onRejected(response) {
 }
 
 function onFulfilled(response) {    
-    console.log(response.data);    
+    console.log(response
+    );    
 
     let currentlyForecast = document.querySelector(".currently")
     currentlyForecast.innerHTML = `${Math.round(response.data.main.temp)}`
