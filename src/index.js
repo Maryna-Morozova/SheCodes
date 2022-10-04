@@ -155,3 +155,22 @@ let weatherIcons = {
 
     Tornado: "images/weather-icons-png/wind.png",
 };
+
+
+
+function toggleTheme() {
+    if (theme === "light") {
+        theme = "dark";
+        document.querySelector("body").classList.add("dark");
+        document.querySelector(".date").classList.add("dark");
+    } else {
+        theme = "light";
+        document.querySelector("body").classList.remove("dark");
+        document.querySelector(".date").classList.remove("dark");
+    }
+}
+
+
+let theme = "dark";
+let themeButton = document.querySelector("#theme");
+themeButton.addEventListener("click", toggleTheme)

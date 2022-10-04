@@ -1,3 +1,21 @@
+body.dark {
+    background-color: gray
+}
+.date.dark {
+    color: rgb(206, 206, 206);
+}
+
+.theme {
+    background-color: rgb(87, 154, 221);
+    border: none;
+}
+.theme:hover {
+    background-color: rgb(87, 154, 221);;
+}
+.btn-theme {
+    text-align: center;
+    margin: auto;
+}
 .container {
     font-family: 'Comfortaa', cursive;
 }
@@ -45,6 +63,7 @@ h1 {
     color: rgb(66, 137, 209);
     font-size: larger;
     font-weight: bold;
+    padding-top: 5px
 }
 
 .celsius, .fahrenheit {

@@ -30,18 +30,22 @@
     <link rel="stylesheet" href="src/style.css" />
     <title>Weather</title>
   </head>
-  <body>
+  <body class="">
     <div class="container">
       <div class="row title">
         <div class="col-5"><h1 class="weather">Weather&nbsp</h1></div>
         <div class="col-1">
-          <img src="images/free-icon-sun-cloud-1083695.png" alt="" />
+          <img src="images/free-icon-sun-cloud-1083695.png" alt=""/>
         </div>
         <div class="col-5"><h1 class="forecast">Forecast</h1></div>
       </div>
       <div class="row main">
         <div class="col-6 main">
-          <div class="col date" id="date"></div>
+          <div class="row ">
+            <div class="col-2"></div>
+            <div class="col-8 date" id="date"></div>
+            <div class="col-2 btn-theme"><button class="btn btn-primary theme" id="theme"></button></div>
+          </div>
           <div class="row first">
             <form class="row g-3 form" id="search-form">
               <div class="col-5 input">
