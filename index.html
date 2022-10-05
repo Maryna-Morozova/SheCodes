@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data-1970-2030.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,7 +20,11 @@
       rel="stylesheet"
     />
 
-    <link rel="shortcut icon" href="images/icon-sun-cloud_64.ico" type="image/x-icon" />
+    <link
+      rel="shortcut icon"
+      href="images/icon-sun-cloud_64.ico"
+      type="image/x-icon"
+    />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -30,21 +38,34 @@
     <link rel="stylesheet" href="src/style.css" />
     <title>Weather</title>
   </head>
-  <body class="">
+
+  <body class="" cz-shortcut-listen="true">
     <div class="container">
       <div class="row title">
         <div class="col-5"><h1 class="weather">Weather&nbsp</h1></div>
         <div class="col-1">
-          <img src="images/free-icon-sun-cloud-1083695.png" alt=""/>
+          <img src="images/free-icon-sun-cloud-1083695.png" alt="" />
         </div>
         <div class="col-5"><h1 class="forecast">Forecast</h1></div>
       </div>
       <div class="row main">
         <div class="col-6 main">
-          <div class="row ">
-            <div class="col-2"></div>
-            <div class="col-8 date" id="date"></div>
-            <div class="col-2 btn-theme"><button class="btn btn-primary theme" id="theme"></button></div>
+          <div class="row">
+            <div class="col-3 current-time">
+
+              <div id="current-time" class="city">
+                <div>
+                  <h2></h2>
+                  <div class="currentDate2">October 4th 2022</div>
+                </div>
+                <div class="currentTime">3:19:54 PM</div>
+              </div>
+            </div>
+
+            <div class="col-6 date" id="date"></div>
+            <div class="col-3 btn-theme">
+              <button class="btn btn-primary theme" id="theme"></button>
+            </div>
           </div>
           <div class="row first">
             <form class="row g-3 form" id="search-form">

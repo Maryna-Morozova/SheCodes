@@ -9,15 +9,23 @@ body.dark {
     background-color: rgb(87, 154, 221);
     border: none;
 }
-.theme:hover {
-    background-color: rgb(87, 154, 221);;
-}
+
 .btn-theme {
     text-align: center;
     margin: auto;
 }
 .container {
     font-family: 'Comfortaa', cursive;
+}
+.current-time {
+padding-bottom: 5px;
+
+}
+.currentDate2, .currentTime {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgb(87, 154, 221);
+    text-align: center;
 }
 
 .title, .main{
@@ -60,6 +68,7 @@ h1 {
 
 .date {
     text-align: center;
+    margin: auto;
     color: rgb(66, 137, 209);
     font-size: larger;
     font-weight: bold;

@@ -40,8 +40,10 @@ function showPosition(position) {
 }
 
 function displayTemp(response) {
+    value = moment.tz.guess();
+    let city = value.split("/")[1].replace('_', ' ')
     let currentGeo = document.querySelector("#search-text-input");
-    currentGeo.setAttribute("placeholder", `${response.data.name}`);
+    currentGeo.setAttribute("placeholder", `${city}`);
 
     let currentlyTemp = document.querySelector(".currently");
     currentlyTemp.innerHTML = `${Math.round(response.data.main.temp)}`;
@@ -157,7 +159,7 @@ let weatherIcons = {
 };
 
 
-
+// Dark Theme
 function toggleTheme() {
     if (theme === "light") {
         theme = "dark";
@@ -171,6 +173,95 @@ function toggleTheme() {
 }
 
 
-let theme = "dark";
+let theme = "light";
 let themeButton = document.querySelector("#theme");
 themeButton.addEventListener("click", toggleTheme)
+
+
+
+// Time
+
+// console.log(moment.tz.names("Europe/Lisbon"));
+// console.log(moment.tz.guess());
+
+setInterval(function () {
+    let kyiv = document.querySelector("#current-time")
+    // console.log(moment.tz(new Date(), 'Europe/London').format('YYYYMMDD HH:mm'));
+    // console.log(moment.tz('Europe/Kiev').format('MMMM Do YYYY'));
+    // console.log(moment().format('HH:mm'));
+    kyiv.querySelector(".currentTime").innerHTML = moment.tz(moment.tz.guess()).format("h:mm:ss A");
+    kyiv.querySelector(".currentDate2").innerHTML = moment.tz(moment.tz.guess()).format('MMMM Do YYYY')
+    
+
+    // // Los Angeles
+    // let losAngeles = document.getElementById('los-angeles')
+    // losAngeles.querySelector('.time').innerHTML = moment().tz('America/Los_Angeles').format('h:mm:ss A');
+    // losAngeles.querySelector('.date').innerHTML = moment().tz('America/Los_Angeles').format('MMMM Do YYYY');
+
+    // // Paris
+    // let paris = document.getElementById('paris')
+    // paris.querySelector('.time').innerHTML = moment().tz('Europe/Paris').format('h:mm:ss A');
+    // paris.querySelector('.date').innerHTML = moment().tz('Europe/Paris').format('MMMM Do YYYY');
+
+    // // Tokyo
+    // let tokyo = document.getElementById('tokyo');
+    // let tokyoTime = moment().tz('Asia/Tokyo');
+    // tokyo.querySelector('.time').innerHTML = tokyoTime.format('h:mm:ss A');
+
+    // tokyo.querySelector('.date').innerHTML = tokyoTime.format('MMMM Do YYYY');
+
+    // // Sydney
+    // let sydney = document.getElementById('sydney');
+    // let sydneyTime = moment().tz('Australia/Sydney');
+    // sydney.querySelector('.time').innerHTML = sydneyTime.format('h:mm:ss A');
+    // sydney.querySelector('.date').innerHTML = sydneyTime.format('MMMM Do YYYY');
+}, 1000);
+
+
+
+// function search(event) {
+//     let cities = document.querySelector('#cities');
+//     let value = event.target.value;
+//     if (event.target.value === 'current') {
+//         value = moment.tz.guess();
+//     }
+
+//     if (value.length) {
+//         let searchTime = moment().tz(value);
+//         let city = value.split("/")[1].replace('_', ' ')
+//         let time = searchTime.format('h:mm:ss A');
+//         let date = searchTime.format('MMMM Do YYYY');;
+//         cities.innerHTML = `
+// 			<div class="city">
+// 				<div>
+// 					<h2>${city}</h2>
+// 					<div class="date">${date}</div>
+// 				</div>
+// 				<div class="time">${time}</div>
+// 			</div>
+// 			`
+//     }
+// }
+
+// let select = document.getElementById("search");
+// select.addEventListener("change", search);
+
+
+// html
+{/* <div>
+        <select id="search">
+          <option value="">Select a location..</option>
+          <option value="current">Current location</option>
+          <option value="Europe/London">London</option>
+          <option value="America/New_York">New York</option>
+        </select>
+      </div>
+      <div class="cities" id="cities">
+        <div class="city">
+          <div>
+            <h2>Kiev</h2>
+            <div class="date">October 5th 2022</div>
+          </div>
+          <div class="time">12:50:23 AM</div>
+        </div>
+      </div> */}
