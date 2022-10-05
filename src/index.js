@@ -1,7 +1,7 @@
-// Date/Time
+let apiKey = "d9fd12d82698dc44978f38d20ae7d12d";
 
-let now = new Date();
-let day = now.getDay();
+
+// Date/Time
 let week = ["Sunday",
     "Monday",
     "Tuesday",
@@ -9,25 +9,114 @@ let week = ["Sunday",
     "Thursday",
     "Friday",
     "Saturday"]
-let hours = now.getHours();
-if (hours < 10) {
-    hours = `0${hours}`;
-}
-
-let minutes = now.getMinutes()
-if (minutes < 10) {
-    minutes = `0${minutes}`
-}
-
+// let now = new Date();
+let day = new Date().getDay();
 let currentDate = document.querySelector("#date")
-currentDate.innerHTML = `${week[day]} ${hours}:${minutes}`;
+currentDate.innerHTML = `${week[day]}`;
 
+// let hours = now.getHours();
+// if (hours < 10) {
+//     hours = `0${hours}`;
+// }
+
+// let minutes = now.getMinutes()
+// if (minutes < 10) {
+//     minutes = `0${minutes}`
+// }
+
+function formatDay(timestamp) {
+    let date = new Date(timestamp * 1000)
+    
+    let day = date.getDay()
+    let days = ["Sun",
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat"]
+    return days[day]
+}
+
+function formatDate(timestamp) {
+    let date = new Date(timestamp * 1000)
+
+    let day = date.getDate()
+    let month = date.getMonth()
+    let months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
+    console.log(`${months[month]}.${day}`);
+    return `${months[month]}.${day}`
+}
+// ${ formatWindDegrees(forecastDay.wind.deg) }
+// function formatWindDegrees(degrees) {
+//     if (degrees > 0 && degrees < 45) {
+//         return NNE
+//     } else if (degrees > 22.5 && degrees < 45) {
+//         return NE
+//     } else if (degrees > 45 && degrees < 67.5) {
+//         return ENE
+//     } else if (degrees > 67.5 && degrees < 90) {
+//         return ENE
+//     }
+// }
+
+function displayForecast(response) {
+    let forecast = response.data.list;
+    console.log(forecast);
+
+    let forecastElement = document.querySelector("#apiForcast");
+
+    let forecastHTML = ``;
+
+    forecast.forEach(function (forecastDay) {
+        forecastHTML = forecastHTML + `
+        <div class="row week">
+            <div class="col-1">${formatDay(forecastDay.dt)}</div>
+            <div class="col-3">${forecastDay.dt_txt}</div>          
+            <div class="col-1">${Math.round(forecastDay.main.temp)}<sup>o</sup></div>           
+            <div class="col-1 humidity">${forecastDay.main.humidity}%</div>
+            <div class="col-2">
+            ${Math.round(forecastDay.wind.speed)} m/s<span class="material-symbols-outlined">air</span></div>
+            <div class="col-1">${Math.round(forecastDay.main.feels_like)}<sup>o</sup></div>
+            <div class="col-2" style="text-transform: capitalize">${forecastDay.weather[0].description}</div>
+            <div class="col-1 icon">
+                    <img src="" alt="" class="icon" id="icon" />
+            </div>
+        </div >
+        <hr />`
+        
+    })
+    forecastElement.innerHTML = forecastHTML;
+
+    // forecast.forEach2(function (forecastDay2) {
+    //     let icon = document.querySelector("#icon");
+    //     icon.setAttribute("src", `${iconChange(forecastDay2.weather[0].main)}`);
+    //     function iconChange(main) {
+    //         if (weatherIcons[main] !== undefined) {
+    //             console.log(`${weatherIcons[main]}`);
+    //             return `${weatherIcons[main]}`
+    //         }
+    //     }
+    // }
+}
 
 
 
 // Current geolocation
 
-let apiKey = "d9fd12d82698dc44978f38d20ae7d12d";
 let lat = null;
 let lon = null;
 
@@ -39,6 +128,12 @@ function showPosition(position) {
     axios.get(apiUrl).then(displayTemp);
 }
 
+function getForecast(coordinates) {
+    console.log(coordinates);
+    // let apiKeyForecast = "1a2b7258ebd456c01aef9175dfe8b709"
+    let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(displayForecast);
+}
 function displayTemp(response) {
     value = moment.tz.guess();
     let city = value.split("/")[1].replace('_', ' ')
@@ -47,7 +142,7 @@ function displayTemp(response) {
 
     let currentlyTemp = document.querySelector(".currently");
     currentlyTemp.innerHTML = `${Math.round(response.data.main.temp)}`;
-    
+
     let currentDesc = document.querySelector("#description");
     currentDesc.innerHTML = `${response.data.weather[0].description}`;
 
@@ -72,6 +167,7 @@ function displayTemp(response) {
         event.preventDefault();
         currentlyTemp.innerHTML = `${Math.round(response.data.main.temp)}`
     }
+    getForecast (response.data.coord)
 }
 
 // Input //
@@ -91,7 +187,7 @@ function search(event) {
     if (searchInput.value !== "") {
         var apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&appid=${apiKey}&units=metric`
         axios.get(apiUrl).then(onFulfilled, onRejected)
-    }   
+    }
 }
 
 function onRejected(response) {
@@ -99,14 +195,14 @@ function onRejected(response) {
     let currentDesc = document.querySelector("#description");
     currentDesc.innerHTML = `${response.response.data.message}`;
     let currentlyForecast = document.querySelector(".currently")
-    currentlyForecast.innerHTML = ``;    
+    currentlyForecast.innerHTML = ``;
     let icon = document.querySelector("#icons");
     icon.setAttribute("src", ``);
 }
 
-function onFulfilled(response) {    
+function onFulfilled(response) {
     console.log(response
-    );    
+    );
 
     let currentlyForecast = document.querySelector(".currently")
     currentlyForecast.innerHTML = `${Math.round(response.data.main.temp)}`
@@ -135,9 +231,11 @@ function onFulfilled(response) {
             return `${weatherIcons[main]}`
         }
     }
+
+
 }
 
-let weatherIcons = {
+var weatherIcons = {
     Thunderstorm: "images/weather-icons-png/CloudRainThunder.png",
     Drizzle: "images/weather-icons-png/IsoRainSwrsDay.png",
     Rain: "images/weather-icons-png/FreezingRain.png",
@@ -165,13 +263,18 @@ function toggleTheme() {
         theme = "dark";
         document.querySelector("body").classList.add("dark");
         document.querySelector(".date").classList.add("dark");
+        document.querySelector(".currentDate2").classList.add("dark");
+        document.querySelector(".currentTime").classList.add("dark");
+
     } else {
         theme = "light";
         document.querySelector("body").classList.remove("dark");
         document.querySelector(".date").classList.remove("dark");
+        document.querySelector(".currentDate2").classList.remove("dark");
+        document.querySelector(".currentTime").classList.remove("dark");
+
     }
 }
-
 
 let theme = "light";
 let themeButton = document.querySelector("#theme");
@@ -191,7 +294,7 @@ setInterval(function () {
     // console.log(moment().format('HH:mm'));
     kyiv.querySelector(".currentTime").innerHTML = moment.tz(moment.tz.guess()).format("h:mm:ss A");
     kyiv.querySelector(".currentDate2").innerHTML = moment.tz(moment.tz.guess()).format('MMMM Do YYYY')
-    
+
 
     // // Los Angeles
     // let losAngeles = document.getElementById('los-angeles')

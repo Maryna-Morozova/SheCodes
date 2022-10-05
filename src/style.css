@@ -1,7 +1,8 @@
 body.dark {
     background-color: gray
 }
-.date.dark {
+.date.dark, .currentDate2.dark,
+.currentTime.dark {
     color: rgb(206, 206, 206);
 }
 
@@ -124,12 +125,17 @@ h1 {
     letter-spacing: 0.8;
 }
 
+.week-forecast {
+    display: flex;
+color: rgb(66, 137, 209);
+}
+
 .symbols {
     margin: auto;
     text-align: center;
 }
 
-.icons{
+.icons, .icon{
     width: 55px;
 }
 
