@@ -1,5 +1,4 @@
-let apiKey = "d9fd12d82698dc44978f38d20ae7d12d";
-
+let apiKeyForecast = "96ad27349a64ea1dcdfbe6f4d458c085"
 
 // Date/Time
 let week = ["Sunday",
@@ -9,7 +8,6 @@ let week = ["Sunday",
     "Thursday",
     "Friday",
     "Saturday"]
-// let now = new Date();
 let day = new Date().getDay();
 let currentDate = document.querySelector("#date")
 currentDate.innerHTML = `${week[day]}`;
@@ -44,75 +42,52 @@ function formatDate(timestamp) {
     let day = date.getDate()
     let month = date.getMonth()
     let months = [
-        "January",
-        "February",
-        "March",
-        "April",
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
         "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
     ];
-    console.log(`${months[month]}.${day}`);
     return `${months[month]}.${day}`
 }
-// ${ formatWindDegrees(forecastDay.wind.deg) }
-// function formatWindDegrees(degrees) {
-//     if (degrees > 0 && degrees < 45) {
-//         return NNE
-//     } else if (degrees > 22.5 && degrees < 45) {
-//         return NE
-//     } else if (degrees > 45 && degrees < 67.5) {
-//         return ENE
-//     } else if (degrees > 67.5 && degrees < 90) {
-//         return ENE
-//     }
-// }
 
 function displayForecast(response) {
-    let forecast = response.data.list;
-    console.log(forecast);
-
-    let forecastElement = document.querySelector("#apiForcast");
-
+    let forecast = response.data.daily;
+    let forecastElement = document.querySelector("#week-forecast");
     let forecastHTML = ``;
-
-    forecast.forEach(function (forecastDay) {
-        forecastHTML = forecastHTML + `
-        <div class="row week">
-            <div class="col-1">${formatDay(forecastDay.dt)}</div>
-            <div class="col-3">${forecastDay.dt_txt}</div>          
-            <div class="col-1">${Math.round(forecastDay.main.temp)}<sup>o</sup></div>           
-            <div class="col-1 humidity">${forecastDay.main.humidity}%</div>
-            <div class="col-2">
-            ${Math.round(forecastDay.wind.speed)} m/s<span class="material-symbols-outlined">air</span></div>
-            <div class="col-1">${Math.round(forecastDay.main.feels_like)}<sup>o</sup></div>
-            <div class="col-2" style="text-transform: capitalize">${forecastDay.weather[0].description}</div>
-            <div class="col-1 icon">
-                    <img src="" alt="" class="icon" id="icon" />
-            </div>
-        </div >
-        <hr />`
-        
+    forecast.forEach(function (forecastDay, index) {
+        if (index < 5) {
+            function iconChange(main) {
+                if (weatherIcons[main] !== undefined) {
+                    return `${weatherIcons[main]}`
+                }
+            }
+            forecastHTML = forecastHTML + ` 
+        <hr class="hr"/>       
+            <div class="row week">
+                <div class="col-1">${formatDay(forecastDay.dt)}</div>
+                <div class="col-2">${formatDate(forecastDay.dt)}</div>          
+                <div class="col-1">${Math.round(forecastDay.temp.day)}<sup>o</sup></div>           
+                <div class="col-2 humidity">${forecastDay.humidity}%</div>
+                <div class="col-2 wind">${Math.round(forecastDay.wind_speed)} m/s</div>
+                <div class="col-2 descr" style="text-transform: capitalize">${forecastDay.weather[0].description}</div>
+                <div class="col-2 icon">
+                    <img src="${iconChange(forecastDay.weather[0].main)}" alt="" class="" id="" width="55px"/>
+                    </div>
+            </div >
+            
+        `
+        }
     })
     forecastElement.innerHTML = forecastHTML;
-
-    // forecast.forEach2(function (forecastDay2) {
-    //     let icon = document.querySelector("#icon");
-    //     icon.setAttribute("src", `${iconChange(forecastDay2.weather[0].main)}`);
-    //     function iconChange(main) {
-    //         if (weatherIcons[main] !== undefined) {
-    //             console.log(`${weatherIcons[main]}`);
-    //             return `${weatherIcons[main]}`
-    //         }
-    //     }
-    // }
 }
-
 
 
 // Current geolocation
@@ -124,14 +99,12 @@ navigator.geolocation.getCurrentPosition(showPosition);
 function showPosition(position) {
     lat = position.coords.latitude;
     lon = position.coords.longitude;
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKeyForecast}&units=metric`;
     axios.get(apiUrl).then(displayTemp);
 }
 
 function getForecast(coordinates) {
-    console.log(coordinates);
-    // let apiKeyForecast = "1a2b7258ebd456c01aef9175dfe8b709"
-    let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKeyForecast}&units=metric`;
     axios.get(apiUrl).then(displayForecast);
 }
 function displayTemp(response) {
@@ -167,7 +140,7 @@ function displayTemp(response) {
         event.preventDefault();
         currentlyTemp.innerHTML = `${Math.round(response.data.main.temp)}`
     }
-    getForecast (response.data.coord)
+    getForecast(response.data.coord)
 }
 
 // Input //
@@ -185,7 +158,8 @@ searchInput.addEventListener("click", function () {
 function search(event) {
     event.preventDefault();
     if (searchInput.value !== "") {
-        var apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&appid=${apiKey}&units=metric`
+        console.log(searchInput.value);
+        var apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&appid=${apiKeyForecast}&units=metric`
         axios.get(apiUrl).then(onFulfilled, onRejected)
     }
 }
@@ -201,8 +175,7 @@ function onRejected(response) {
 }
 
 function onFulfilled(response) {
-    console.log(response
-    );
+    console.log(response);
 
     let currentlyForecast = document.querySelector(".currently")
     currentlyForecast.innerHTML = `${Math.round(response.data.main.temp)}`
@@ -231,8 +204,7 @@ function onFulfilled(response) {
             return `${weatherIcons[main]}`
         }
     }
-
-
+    getForecast(response.data.coord)
 }
 
 var weatherIcons = {
@@ -282,89 +254,9 @@ themeButton.addEventListener("click", toggleTheme)
 
 
 
-// Time
-
-// console.log(moment.tz.names("Europe/Lisbon"));
-// console.log(moment.tz.guess());
-
+// Timer
 setInterval(function () {
     let kyiv = document.querySelector("#current-time")
-    // console.log(moment.tz(new Date(), 'Europe/London').format('YYYYMMDD HH:mm'));
-    // console.log(moment.tz('Europe/Kiev').format('MMMM Do YYYY'));
-    // console.log(moment().format('HH:mm'));
     kyiv.querySelector(".currentTime").innerHTML = moment.tz(moment.tz.guess()).format("h:mm:ss A");
     kyiv.querySelector(".currentDate2").innerHTML = moment.tz(moment.tz.guess()).format('MMMM Do YYYY')
-
-
-    // // Los Angeles
-    // let losAngeles = document.getElementById('los-angeles')
-    // losAngeles.querySelector('.time').innerHTML = moment().tz('America/Los_Angeles').format('h:mm:ss A');
-    // losAngeles.querySelector('.date').innerHTML = moment().tz('America/Los_Angeles').format('MMMM Do YYYY');
-
-    // // Paris
-    // let paris = document.getElementById('paris')
-    // paris.querySelector('.time').innerHTML = moment().tz('Europe/Paris').format('h:mm:ss A');
-    // paris.querySelector('.date').innerHTML = moment().tz('Europe/Paris').format('MMMM Do YYYY');
-
-    // // Tokyo
-    // let tokyo = document.getElementById('tokyo');
-    // let tokyoTime = moment().tz('Asia/Tokyo');
-    // tokyo.querySelector('.time').innerHTML = tokyoTime.format('h:mm:ss A');
-
-    // tokyo.querySelector('.date').innerHTML = tokyoTime.format('MMMM Do YYYY');
-
-    // // Sydney
-    // let sydney = document.getElementById('sydney');
-    // let sydneyTime = moment().tz('Australia/Sydney');
-    // sydney.querySelector('.time').innerHTML = sydneyTime.format('h:mm:ss A');
-    // sydney.querySelector('.date').innerHTML = sydneyTime.format('MMMM Do YYYY');
 }, 1000);
-
-
-
-// function search(event) {
-//     let cities = document.querySelector('#cities');
-//     let value = event.target.value;
-//     if (event.target.value === 'current') {
-//         value = moment.tz.guess();
-//     }
-
-//     if (value.length) {
-//         let searchTime = moment().tz(value);
-//         let city = value.split("/")[1].replace('_', ' ')
-//         let time = searchTime.format('h:mm:ss A');
-//         let date = searchTime.format('MMMM Do YYYY');;
-//         cities.innerHTML = `
-// 			<div class="city">
-// 				<div>
-// 					<h2>${city}</h2>
-// 					<div class="date">${date}</div>
-// 				</div>
-// 				<div class="time">${time}</div>
-// 			</div>
-// 			`
-//     }
-// }
-
-// let select = document.getElementById("search");
-// select.addEventListener("change", search);
-
-
-// html
-{/* <div>
-        <select id="search">
-          <option value="">Select a location..</option>
-          <option value="current">Current location</option>
-          <option value="Europe/London">London</option>
-          <option value="America/New_York">New York</option>
-        </select>
-      </div>
-      <div class="cities" id="cities">
-        <div class="city">
-          <div>
-            <h2>Kiev</h2>
-            <div class="date">October 5th 2022</div>
-          </div>
-          <div class="time">12:50:23 AM</div>
-        </div>
-      </div> */}

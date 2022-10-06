@@ -1,27 +1,11 @@
-body.dark {
-    background-color: gray
-}
-.date.dark, .currentDate2.dark,
-.currentTime.dark {
-    color: rgb(206, 206, 206);
-}
-
-.theme {
-    background-color: rgb(87, 154, 221);
-    border: none;
-}
-
-.btn-theme {
-    text-align: center;
-    margin: auto;
-}
 .container {
     font-family: 'Comfortaa', cursive;
 }
-.current-time {
-padding-bottom: 5px;
 
+.current-time {
+    padding-bottom: 5px;
 }
+
 .currentDate2, .currentTime {
     font-size: 13px;
     font-weight: 600;
@@ -30,8 +14,9 @@ padding-bottom: 5px;
 }
 
 .title, .main{
-justify-content: center;
+    justify-content: center;
 }
+
 h1 {
     color: rgb(87, 154, 221);
     letter-spacing: 3px;
@@ -40,9 +25,11 @@ h1 {
     font-size: 50px;
     font-weight: 600;
 }
+
 .weather {
     text-align: right;
 }
+
 .forecast {
     text-align: left;
 }
@@ -55,8 +42,7 @@ h1 {
 
 .first {
     background-color: rgb(87, 154, 221);
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
+    border-radius: 12px;
 }
 
 .search {
@@ -126,8 +112,7 @@ h1 {
 }
 
 .week-forecast {
-    display: flex;
-color: rgb(66, 137, 209);
+    font-weight: bold;
 }
 
 .symbols {
@@ -135,8 +120,8 @@ color: rgb(66, 137, 209);
     text-align: center;
 }
 
-.icons, .icon{
-    width: 55px;
+.icon, .descr, .wind, .humidity {
+    text-align: center;
 }
 
 .current {
@@ -145,18 +130,36 @@ color: rgb(66, 137, 209);
 }
 
 .week {
-    padding-top: 16px;
     margin: 0 auto;
-}
-
-.humidity {
-    text-align: right;
+    align-items: center;
+    padding: 0;
 }
 
 .hr {
-    color: #ffff;
+    margin: 10px;
+}
+
+body.dark {
+    background-color: gray
+}
+
+.date.dark,
+.currentDate2.dark,
+.currentTime.dark {
+    color: rgb(206, 206, 206);
+}
+
+.theme {
+    background-color: rgb(87, 154, 221);
+    border: none;
+}
+
+.btn-theme {
+    text-align: center;
+    margin: auto;
 }
 
 .contact {
     text-align: center;
+    padding-top: 10px;
 }
