@@ -59,9 +59,17 @@ function formatDate(timestamp) {
 }
 
 function displayForecast(response) {
+    if (response.name === "AxiosError") {
+        let forecastElement = document.querySelector("#week-forecast");
+        let forecastHTML = ``;
+        forecastElement.innerHTML = forecastHTML;
+    } else {
+        
     let forecast = response.data.daily;
     let forecastElement = document.querySelector("#week-forecast");
     let forecastHTML = ``;
+    console.log(forecast);
+
     forecast.forEach(function (forecastDay, index) {
         if (index < 5) {
             function iconChange(main) {
@@ -69,24 +77,24 @@ function displayForecast(response) {
                     return `${weatherIcons[main]}`
                 }
             }
-            forecastHTML = forecastHTML + ` 
-        <hr class="hr"/>       
-            <div class="row week">
-                <div class="col-1">${formatDay(forecastDay.dt)}</div>
-                <div class="col-2">${formatDate(forecastDay.dt)}</div>          
-                <div class="col-1">${Math.round(forecastDay.temp.day)}<sup>o</sup></div>           
-                <div class="col-2 humidity">${forecastDay.humidity}%</div>
-                <div class="col-2 wind">${Math.round(forecastDay.wind_speed)} m/s</div>
-                <div class="col-2 descr" style="text-transform: capitalize">${forecastDay.weather[0].description}</div>
-                <div class="col-2 icon">
-                    <img src="${iconChange(forecastDay.weather[0].main)}" alt="" class="" id="" width="55px"/>
+
+            forecastHTML = forecastHTML + 
+                `<hr class="hr"/>       
+                <div class="row week">
+                    <div class="col-1 formatDay">${formatDay(forecastDay.dt)}</div>
+                    <div class="col-2 formatDate">${formatDate(forecastDay.dt)}</div>          
+                    <div class="col-1 temp">${Math.round(forecastDay.temp.day)}<sup>o</sup></div>
+                    <div class="col-2 humidity">${forecastDay.humidity}%</div>
+                    <div class="col-2 wind">${Math.round(forecastDay.wind_speed)} m/s</div>
+                    <div class="col-2 descr" style="text-transform: capitalize">${forecastDay.weather[0].description}</div>
+                    <div class="col-2 icon">
+                        <img src="${iconChange(forecastDay.weather[0].main)}" alt="" class="" id="" width="55px"/>
                     </div>
-            </div >
-            
-        `
-        }
+                </div >`            
+        }        
     })
-    forecastElement.innerHTML = forecastHTML;
+    forecastElement.innerHTML = forecastHTML;    
+    }
 }
 
 
@@ -158,7 +166,6 @@ searchInput.addEventListener("click", function () {
 function search(event) {
     event.preventDefault();
     if (searchInput.value !== "") {
-        console.log(searchInput.value);
         var apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&appid=${apiKeyForecast}&units=metric`
         axios.get(apiUrl).then(onFulfilled, onRejected)
     }
@@ -172,6 +179,7 @@ function onRejected(response) {
     currentlyForecast.innerHTML = ``;
     let icon = document.querySelector("#icons");
     icon.setAttribute("src", ``);
+    displayForecast(response)
 }
 
 function onFulfilled(response) {

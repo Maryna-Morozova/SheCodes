@@ -14,7 +14,7 @@
 }
 
 .title, .main{
-    justify-content: center;
+justify-content: center;
 }
 
 h1 {
@@ -38,6 +38,9 @@ h1 {
     border: 3px solid black;
     opacity: 0.85;
     border-radius: 15px;
+}
+.header {
+    padding: 0 20px;
 }
 
 .first {
@@ -112,15 +115,11 @@ h1 {
 }
 
 .week-forecast {
-    font-weight: bold;
+font-weight: bold;
 }
 
 .symbols {
     margin: auto;
-    text-align: center;
-}
-
-.icon, .descr, .wind, .humidity {
     text-align: center;
 }
 
@@ -133,6 +132,13 @@ h1 {
     margin: 0 auto;
     align-items: center;
     padding: 0;
+}
+.week>div {
+        padding: 0;
+        text-align: center;
+}
+.week>div.temp{
+    text-align: right;
 }
 
 .hr {
@@ -155,7 +161,7 @@ body.dark {
 }
 
 .btn-theme {
-    text-align: center;
+    text-align: right;
     margin: auto;
 }
 
