@@ -235,6 +235,9 @@ var weatherIcons = {
 };
 
 // Toggle Theme
+let themeButton = document.querySelector("#theme");
+themeButton.addEventListener("click", toggleTheme)
+
 function toggleTheme() {
   document.querySelector('body').classList.toggle('dark');
   document.querySelector('.date').classList.toggle('dark');
